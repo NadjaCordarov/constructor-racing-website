@@ -1,0 +1,868 @@
+<!doctype html>
+<!--
+  Constructor Autonomous Racing — landing page for www.constructor.racing
+  Static site: upload index.html + assets/ to the web root. No build step.
+
+  To finish before launch:
+  - YOUTUBE_ID (bottom of file): paste the team film's YouTube ID to show the "Watch the film" button.
+  - Images are WebP in two widths (-1000 for phones, -2000 for desktop). To swap a photo, export both widths.
+  - Partners: copy one <article class="partner-card"> block in the "Our partners" section to add a partner.
+  - ALS Hauss (Constructor brand font) is used if installed on the visitor's computer; otherwise Onest (assets/fonts).
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Constructor Autonomous Racing — AI driving at the limit of the real world</title>
+<meta name="description" content="Professional AI racing team competing in A2RL, the world’s leading autonomous racing league. Formula 1 for AI. Roborace World Champions, 2nd at A2RL Imola 2026.">
+<meta name="theme-color" content="#00204D">
+<link rel="canonical" href="https://www.constructor.racing/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://www.constructor.racing/">
+<meta property="og:title" content="Constructor Autonomous Racing">
+<meta property="og:description" content="Professional AI racing team competing in A2RL, the world’s leading autonomous racing league. Formula 1 for AI.">
+<meta property="og:image" content="https://www.constructor.racing/assets/img/pitlane-yas-marina-2000.webp">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%2300204D'/%3E%3Cpath d='M38 20a14 14 0 1 0 0 24' fill='none' stroke='%23fff' stroke-width='7'/%3E%3Cpath d='M40 22l10 10-10 10' fill='none' stroke='%23FFC622' stroke-width='7'/%3E%3C/svg%3E">
+<link rel="preload" href="assets/fonts/onest-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" as="image" href="assets/img/hero-wing-2200.webp" imagesrcset="assets/img/hero-wing-1000.webp 1000w, assets/img/hero-wing-2200.webp 2200w" imagesizes="100vw">
+<style>
+@font-face{font-family:"ALS Hauss";src:local("ALS Hauss");font-weight:400;font-display:swap}
+@font-face{font-family:"ALS Hauss";src:local("ALS Hauss Medium");font-weight:500;font-display:swap}
+@font-face{font-family:"ALS Hauss";src:local("ALS Hauss Bold");font-weight:700;font-display:swap}
+@font-face{font-family:"Onest";src:url("assets/fonts/onest-latin.woff2") format("woff2");font-weight:400 800;font-display:swap}
+
+:root{
+  --navy:#00204D;
+  --navy-deep:#001433;
+  --navy-soft:#0B2D5E;
+  --ink:#121417;
+  --muted:#5B6472;
+  --line:#E3E6EB;
+  --paper:#FFFFFF;
+  --grey:#F4F5F7;
+  --yellow:#FFC622;
+  --red:#E01600;
+  --on-dark:#FFFFFF;
+  --on-dark-muted:rgba(255,255,255,.72);
+  --on-dark-line:rgba(255,255,255,.16);
+  --font:"ALS Hauss","Onest","Helvetica Neue",Arial,sans-serif;
+  --wrap:1280px;
+  --gutter:clamp(16px,4vw,48px);
+  --section:clamp(72px,10vw,140px);
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font);font-size:18px;line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit}
+h1,h2,h3,h4{margin:0;font-weight:700;letter-spacing:-.02em;line-height:1.05}
+p{margin:0}
+ul,ol{margin:0;padding:0;list-style:none}
+[hidden]{display:none!important}
+:focus-visible{outline:3px solid var(--yellow);outline-offset:3px}
+.skip{position:absolute;left:-999px;top:8px;background:var(--yellow);color:var(--navy);padding:10px 16px;z-index:100;font-weight:600}
+.skip:focus{left:8px}
+
+section[id],form[id]{scroll-margin-top:96px}
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 var(--gutter)}
+.section{padding:var(--section) 0}
+.dark{background:var(--navy);color:var(--on-dark)}
+.deep{background:var(--navy-deep);color:var(--on-dark)}
+.grey{background:var(--grey)}
+.eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:13px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--red);margin-bottom:20px}
+.eyebrow::before{content:"";width:22px;height:2px;background:currentColor}
+.dark .eyebrow,.deep .eyebrow,.hero .eyebrow,.partner .eyebrow,.clients .eyebrow{color:var(--yellow)}
+.h2{font-size:clamp(36px,5.2vw,68px)}
+.h3{font-size:clamp(22px,2.2vw,28px);letter-spacing:-.01em;line-height:1.15}
+.lead{font-size:clamp(19px,1.7vw,23px);line-height:1.5;color:var(--muted);max-width:760px}
+.dark .lead,.deep .lead{color:var(--on-dark-muted)}
+.hl{color:var(--yellow)}
+.section-head{display:grid;gap:24px;margin-bottom:clamp(40px,6vw,72px)}
+.section-head.split{grid-template-columns:1fr 1fr;align-items:end;gap:48px}
+
+.btn{display:inline-flex;align-items:center;gap:12px;padding:16px 26px;font:600 16px/1 var(--font);text-decoration:none;border:2px solid transparent;cursor:pointer;transition:background .2s,color .2s,border-color .2s,transform .2s}
+.btn svg{width:18px;height:18px;transition:transform .2s}
+.btn:hover svg{transform:translateX(4px)}
+.btn-primary{background:var(--yellow);color:var(--navy)}
+.btn-primary:hover{background:#fff}
+.btn-ghost{border-color:rgba(255,255,255,.55);color:#fff;background:transparent}
+.btn-ghost:hover{border-color:#fff;background:rgba(255,255,255,.08)}
+.btn-dark{background:var(--navy);color:#fff}
+.btn-dark:hover{background:var(--navy-soft)}
+
+.text-link{display:inline-flex;align-items:center;gap:8px;margin-top:20px;padding-bottom:4px;font-weight:600;font-size:17px;color:var(--navy);text-decoration:none;border-bottom:2px solid var(--yellow)}
+.text-link svg{width:15px;height:15px;transition:transform .2s}
+.text-link:hover svg{transform:translate(2px,-2px)}
+
+/* Header */
+.header{position:fixed;inset:0 0 auto 0;z-index:50;transition:background .3s,box-shadow .3s}
+.header .wrap{display:flex;align-items:center;justify-content:space-between;height:76px}
+.header.scrolled{background:rgba(0,20,51,.94);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);box-shadow:0 1px 0 var(--on-dark-line)}
+.brand img{height:34px;width:auto}
+.nav{display:flex;align-items:center;gap:32px}
+.nav a{color:#fff;text-decoration:none;font-size:15px;font-weight:500;opacity:.85;transition:opacity .2s}
+.nav a:hover{opacity:1}
+.nav .btn{opacity:1;padding:12px 20px;font-size:15px}
+.menu-btn{display:none;background:none;border:0;color:#fff;padding:8px;cursor:pointer}
+.menu-btn svg{width:28px;height:28px}
+
+/* Hero */
+.hero{position:relative;min-height:100vh;min-height:100svh;display:flex;align-items:flex-end;color:#fff;background:var(--navy-deep) url("assets/img/hero-wing-2200.webp") 62% center/cover no-repeat;overflow:hidden}
+.hero::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,20,51,.92) 0%,rgba(0,20,51,.65) 42%,rgba(0,20,51,0) 75%),linear-gradient(0deg,rgba(0,20,51,.9) 0%,rgba(0,20,51,0) 40%)}
+.hero .wrap{position:relative;width:100%;padding-top:140px;padding-bottom:clamp(48px,8vw,96px)}
+.hero h1{font-size:clamp(46px,7.6vw,112px);max-width:11ch;line-height:.98;letter-spacing:-.03em}
+.hero-sub{margin-top:28px;font-size:clamp(18px,1.7vw,24px);line-height:1.4;color:var(--on-dark-muted)}
+.hero-sub span{display:block;max-width:600px;text-wrap:balance}
+.hero-sub .f1{white-space:nowrap;color:#fff;font-weight:600}
+.hero-beats{display:grid;gap:4px;margin-top:28px;font-weight:600;font-size:clamp(16px,1.4vw,19px)}
+.hero-beats li:last-child{color:var(--yellow)}
+.hero-ctas{display:flex;flex-wrap:wrap;gap:14px;margin-top:40px}
+.hero-speed{position:absolute;right:var(--gutter);bottom:clamp(48px,8vw,96px);text-align:right}
+.hero-speed b{display:block;font-size:clamp(56px,8vw,120px);line-height:.9;letter-spacing:-.04em}
+.hero-speed b small{font-size:.32em;letter-spacing:0;margin-left:6px;color:var(--yellow)}
+.hero-speed span{font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--on-dark-muted)}
+
+/* Stats strip */
+.stats{background:var(--navy);color:#fff;border-top:1px solid var(--on-dark-line)}
+.stats ul{display:grid;grid-template-columns:repeat(4,minmax(0,1fr))}
+.stats li{padding:clamp(36px,4vw,52px) 20px;text-align:center;border-left:1px solid var(--on-dark-line)}
+.stats li:first-child{border-left:0}
+.stat-num{display:block;font-size:clamp(40px,4.4vw,60px);font-weight:700;letter-spacing:-.03em;line-height:1}
+.stat-label{display:block;max-width:20ch;margin:14px auto 0;font-size:15px;line-height:1.4;color:var(--on-dark-muted)}
+
+/* Team intro */
+.intro-top{display:grid;grid-template-columns:1fr 1fr;gap:clamp(40px,6vw,96px);align-items:start}
+.intro-car{margin:clamp(56px,7vw,96px) 0 0}
+.intro-car img{width:100%;max-width:1184px;margin:0 auto;mix-blend-mode:multiply}
+.intro-car figcaption{margin-top:14px;font-size:14px;color:var(--muted)}
+.checks{margin-top:36px;display:grid;gap:0;border-top:1px solid var(--line)}
+.checks li{display:flex;gap:18px;align-items:baseline;padding:18px 0;border-bottom:1px solid var(--line);font-size:18px}
+.checks li b{font-weight:600}
+.checks .yr{flex:0 0 64px;font-weight:700;color:var(--red);font-size:15px;letter-spacing:.04em}
+.intro-body{color:var(--muted)}
+
+/* Timeline */
+.timeline-head{max-width:900px;margin-bottom:64px}
+.timeline{display:grid;grid-template-columns:repeat(9,1fr)}
+.tl-item{position:relative;padding:32px 16px 0 0;border-top:2px solid var(--on-dark-line)}
+.tl-item::before{content:"";position:absolute;top:-7px;left:0;width:12px;height:12px;background:var(--navy-deep);border:2px solid #fff}
+.tl-item.win::before{background:var(--yellow);border-color:var(--yellow)}
+.tl-year{font-size:clamp(28px,2.6vw,38px);font-weight:700;letter-spacing:-.03em;line-height:1}
+.tl-item.win .tl-year{color:var(--yellow)}
+.tl-cup{display:block;width:28px;height:28px;margin-top:18px;color:var(--yellow)}
+.tl-title{margin-top:16px;font-size:15px;line-height:1.4;color:#fff;font-weight:600}
+.tl-legend{display:flex;align-items:center;gap:10px;margin-top:48px;font-size:15px;color:#fff}
+.tl-legend svg{width:20px;height:20px;color:var(--yellow)}
+
+/* League */
+.league-hero{position:relative;margin:0 0 clamp(48px,6vw,80px)}
+.league-hero img{width:100%;aspect-ratio:16/9;object-fit:cover}
+.league-hero figcaption{margin-top:14px;font-size:14px;color:var(--muted)}
+.league-grid{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--line)}
+.league-grid > div{padding:32px 28px 32px 0;border-right:1px solid var(--line)}
+.league-grid > div+div{padding-left:28px}
+.league-grid > div:last-child{border-right:0}
+.big{font-size:clamp(40px,4.4vw,60px);font-weight:700;letter-spacing:-.03em;line-height:1;color:var(--navy)}
+.big small{font-size:.4em;margin-left:4px}
+.league-grid p{margin-top:12px;color:var(--muted);font-size:16px;line-height:1.45}
+.facts{display:grid;grid-template-columns:1fr 1fr;gap:0 64px;margin-top:clamp(48px,6vw,72px)}
+.facts li{padding:20px 0;border-bottom:1px solid var(--line);display:flex;gap:16px;font-size:18px}
+.facts li::before{content:"";flex:0 0 8px;height:8px;margin-top:10px;background:var(--red)}
+
+
+/* Technology */
+.tech{position:relative;overflow:hidden}
+.pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--on-dark-line);border:2px solid var(--on-dark-line)}
+.pillar{background:var(--navy);padding:clamp(28px,3.5vw,48px)}
+.pillar-num{font-size:14px;font-weight:600;letter-spacing:.14em;color:var(--yellow)}
+.pillar h3{margin-top:56px;font-size:clamp(28px,2.8vw,40px)}
+.pillar p{margin-top:14px;color:var(--on-dark-muted);font-size:17px}
+.pillar ul{margin-top:24px;display:grid;gap:10px}
+.pillar li{font-size:16px;padding-left:22px;position:relative}
+.pillar li::before{content:"";position:absolute;left:0;top:.65em;width:10px;height:2px;background:var(--yellow)}
+.loop{display:flex;flex-wrap:wrap;align-items:center;gap:14px 18px;margin-top:clamp(48px,6vw,72px);font-size:clamp(20px,2vw,26px);font-weight:600}
+.loop .arr{color:var(--yellow)}
+.loop-label{width:100%;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--on-dark-muted);font-weight:600;margin-bottom:4px}
+.why{display:grid;grid-template-columns:1fr 1fr;gap:clamp(40px,6vw,96px);margin-top:clamp(64px,8vw,120px);align-items:center}
+.why img{width:100%;aspect-ratio:16/10;object-fit:cover}
+.why blockquote{margin:0;font-size:clamp(24px,2.6vw,36px);font-weight:600;line-height:1.25;letter-spacing:-.015em}
+.why p{margin-top:24px;color:var(--on-dark-muted)}
+
+/* Beyond racing */
+.offers{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.offer{background:#fff;padding:36px 32px 40px;border:1px solid var(--line);display:flex;flex-direction:column;transition:transform .25s,box-shadow .25s}
+.offer:hover{transform:translateY(-4px);box-shadow:0 18px 40px -20px rgba(0,32,77,.35)}
+.offer-icon{width:52px;height:52px;background:var(--navy);display:grid;place-items:center;color:var(--yellow)}
+.offer-icon svg{width:26px;height:26px}
+.offer h3{margin-top:28px;font-size:23px;letter-spacing:-.01em;line-height:1.2}
+.offer p{margin-top:12px;color:var(--muted);font-size:16px}
+.offer .for{margin-top:auto;padding-top:24px;font-size:14px;color:var(--navy);font-weight:600}
+.offer.cta{background:var(--navy);color:#fff;border-color:var(--navy);justify-content:space-between}
+.offer.cta p{color:var(--on-dark-muted)}
+.clients{margin-top:clamp(64px,8vw,104px);background:var(--navy);color:#fff;padding:clamp(32px,4vw,56px)}
+.clients-head{display:flex;justify-content:space-between;align-items:end;gap:24px;flex-wrap:wrap}
+.clients-head p{color:var(--on-dark-muted);max-width:520px;font-size:16px}
+.logos{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));margin-top:40px;border-top:1px solid var(--on-dark-line)}
+.logo-cell{display:flex;align-items:center;justify-content:center;padding:28px 10px;border-right:1px solid var(--on-dark-line);min-height:128px}
+.logo-cell:last-child{border-right:0}
+.logo-cell img{height:var(--h,40px);width:auto;max-width:100%;object-fit:contain}
+
+/* Audience */
+.aud-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-top:2px solid var(--navy)}
+.aud-grid > div{padding:32px 24px 8px 0}
+.aud-grid p{margin-top:10px;color:var(--muted);font-size:16px}
+.aud-block-title{font-size:13px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;color:var(--muted);margin:clamp(48px,6vw,72px) 0 0}
+.press{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin-top:24px}
+.press li{flex:0 0 calc((100% - 36px)/4)}
+.press a{display:flex;align-items:center;justify-content:center;height:112px;padding:24px;background:var(--grey);transition:background .2s}
+.press a:hover{background:#E9ECF1}
+.press img{max-height:38px;max-width:min(170px,100%);width:auto;object-fit:contain;filter:grayscale(1) brightness(0);opacity:.72;transition:opacity .2s}
+.press a:hover img{opacity:1}
+.note{margin-top:32px;font-size:13px;color:var(--muted)}
+
+/* Our partners */
+.partner-list{display:grid;gap:24px}
+.partner-card{display:grid;grid-template-columns:1.15fr 1fr;background:var(--navy);color:#fff;overflow:hidden}
+.partner-photo{position:relative;min-height:320px;overflow:hidden}
+.partner-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:40% 60%;transition:transform .6s}
+.partner-card:hover .partner-photo img{transform:scale(1.03)}
+.partner-body{display:flex;flex-direction:column;align-items:flex-start;padding:clamp(28px,4vw,56px)}
+.partner-logo{height:40px;width:auto}
+.partner-role{margin-top:24px;font-size:13px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--yellow)}
+.partner-body p{margin-top:14px;font-size:17px;color:var(--on-dark-muted);max-width:52ch}
+.partner-link{display:inline-flex;align-items:center;gap:8px;margin-top:28px;padding-bottom:4px;font-weight:600;text-decoration:none;border-bottom:2px solid var(--yellow)}
+.partner-link svg{width:16px;height:16px;transition:transform .2s}
+.partner-link:hover svg{transform:translate(2px,-2px)}
+
+/* Partner */
+.partner{position:relative;color:#fff;background:var(--navy-deep) url("assets/img/yas-marina-night-2200.webp") center/cover no-repeat;padding:clamp(120px,16vw,220px) 0}
+.partner::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,20,51,.94) 0%,rgba(0,20,51,.7) 55%,rgba(0,20,51,.35) 100%)}
+.partner .wrap{position:relative}
+.partner{padding:clamp(88px,11vw,160px) 0}
+.partner-grid{display:grid;grid-template-columns:1fr minmax(0,500px);gap:clamp(40px,6vw,96px);align-items:center}
+.partner h2{font-size:clamp(42px,6vw,84px);max-width:13ch}
+.partner .lead{margin-top:28px;color:var(--on-dark-muted)}
+.contact-form{background:#fff;color:var(--ink);padding:clamp(24px,3vw,40px);display:grid;gap:18px}
+.contact-form h3{font-size:26px;letter-spacing:-.01em}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.field{display:grid;gap:6px;min-width:0}
+.field label{font-size:14px;font-weight:600;color:var(--navy)}
+.field input,.field select,.field textarea{width:100%;font:400 16px/1.4 var(--font);color:var(--ink);background:var(--grey);border:1.5px solid var(--line);border-radius:0;padding:12px 14px;transition:border-color .2s,background .2s}
+.field textarea{resize:vertical;min-height:110px}
+.field select{appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2300204D' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;background-size:18px;padding-right:40px}
+.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--navy);background:#fff}
+.contact-form .btn{justify-self:start;margin-top:6px}
+
+/* Ecosystem */
+.eco-cards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px}
+.eco{background:#fff;border:1px solid var(--line);display:flex;flex-direction:column;color:inherit;text-decoration:none;transition:box-shadow .25s,transform .25s}
+.eco:hover{transform:translateY(-4px);box-shadow:0 18px 40px -20px rgba(0,32,77,.35)}
+.eco-body{display:flex;flex-direction:column;flex:1}
+.eco-link{display:inline-flex;align-items:center;gap:6px;margin-top:auto;padding-top:20px;font-size:15px;font-weight:600;color:var(--navy)}
+.eco-link svg{width:14px;height:14px;transition:transform .2s}
+.eco:hover .eco-link svg{transform:translate(2px,-2px)}
+.eco-media{position:relative;aspect-ratio:16/10;overflow:hidden;background:var(--navy)}
+.eco-media img{width:100%;height:100%;object-fit:cover;transition:transform .6s}
+.eco:hover .eco-media img{transform:scale(1.04)}
+.eco-media::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(0,20,51,.85),rgba(0,20,51,.1) 60%)}
+.eco-media .eco-logo{position:absolute;left:20px;bottom:18px;z-index:1;height:34px;width:auto;max-width:calc(100% - 40px)}
+.eco-body{padding:28px 28px 32px}
+.eco-body h3{font-size:21px;letter-spacing:-.01em}
+.eco-body p{margin-top:10px;color:var(--muted);font-size:16px}
+.group-stats{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));margin-top:clamp(48px,6vw,72px);border-top:2px solid var(--navy);border-bottom:1px solid var(--line)}
+.group-stats > div{padding:clamp(32px,4vw,44px) 16px;text-align:center;border-left:1px solid var(--line)}
+.group-stats > div:first-child{border-left:0}
+.group-stats p{max-width:18ch;margin:10px auto 0;color:var(--muted);font-size:15px}
+.loop-line{margin-top:40px;font-size:18px;color:var(--muted);text-align:center}
+.loop-line b{color:var(--navy)}
+
+/* Footer */
+.footer{background:var(--navy-deep);color:#fff;padding:72px 0 40px}
+.footer-top{display:flex;justify-content:space-between;align-items:flex-start;gap:40px;flex-wrap:wrap;padding-bottom:48px;border-bottom:1px solid var(--on-dark-line)}
+.footer-top img{height:38px;width:auto}
+.footer-contact{text-align:right}
+.footer-contact span{display:block;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--on-dark-muted);font-weight:600}
+.footer-contact a{display:inline-block;margin-top:10px;font-size:clamp(20px,2.2vw,28px);font-weight:600;text-decoration:none;border-bottom:2px solid var(--yellow)}
+.footer-bottom{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;padding-top:28px;font-size:14px;color:var(--on-dark-muted)}
+.footer-bottom nav{display:flex;gap:24px;flex-wrap:wrap}
+.footer-bottom a{text-decoration:none}
+.footer-bottom a:hover{color:#fff}
+
+/* Video lightbox */
+.lightbox{position:fixed;inset:0;z-index:80;background:rgba(0,10,25,.92);display:none;align-items:center;justify-content:center;padding:var(--gutter)}
+.lightbox.open{display:flex}
+.lightbox .frame{width:min(1200px,100%);aspect-ratio:16/9;background:#000}
+.lightbox iframe{width:100%;height:100%;border:0}
+.lightbox .close{position:absolute;top:20px;right:20px;width:48px;height:48px;background:none;border:1.5px solid rgba(255,255,255,.5);color:#fff;font-size:26px;cursor:pointer}
+
+/* Reveal */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .8s cubic-bezier(.2,.7,.2,1),transform .8s cubic-bezier(.2,.7,.2,1)}
+.reveal.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .reveal{opacity:1;transform:none;transition:none}
+  *{transition:none!important}
+}
+
+/* Responsive */
+@media (max-width:1100px){
+  .offers{grid-template-columns:1fr 1fr}
+  .logos{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .logo-cell:nth-child(3n){border-right:0}
+  .logo-cell:nth-child(-n+3){border-bottom:1px solid var(--on-dark-line)}
+  .group-stats{grid-template-columns:repeat(6,minmax(0,1fr))}
+  .group-stats > div{grid-column:span 2;border-left:0;padding:28px 12px}
+  .group-stats > div:nth-child(4){grid-column:2 / 4}
+  .group-stats > div:nth-child(5){grid-column:4 / 6}
+}
+@media (max-width:960px){
+  .nav{position:fixed;inset:76px 0 auto 0;flex-direction:column;align-items:flex-start;gap:0;background:var(--navy-deep);padding:8px var(--gutter) 28px;transform:translateY(-120%);transition:transform .3s;border-bottom:1px solid var(--on-dark-line)}
+  .nav.open{transform:none}
+  .nav a{padding:14px 0;width:100%;font-size:18px;border-bottom:1px solid var(--on-dark-line)}
+  .nav .btn{margin-top:20px;width:auto;border-bottom:0}
+  .menu-btn{display:block}
+  .header.menu-open{background:var(--navy-deep)}
+  .section-head.split,.intro-top,.why{grid-template-columns:1fr}
+  .league-grid,.aud-grid{grid-template-columns:1fr 1fr}
+  .league-grid > div:nth-child(2){border-right:0}
+  .league-grid > div:nth-child(3){padding-left:0}
+  .league-grid > div:nth-child(-n+2){border-bottom:1px solid var(--line)}
+  .timeline{grid-template-columns:repeat(3,1fr);row-gap:40px}
+  .pillars{grid-template-columns:1fr}
+  .pillar h3{margin-top:28px}
+  .eco-cards{grid-template-columns:1fr 1fr}
+  .partner-card{grid-template-columns:1fr}
+  .partner-grid{grid-template-columns:1fr}
+  .partner-photo{min-height:0;aspect-ratio:3/2}
+  .hero-speed{display:none}
+}
+@media (max-width:640px){
+  .hero{background-image:url("assets/img/hero-wing-1000.webp");background-position:72% center}
+  .hero::before{background:linear-gradient(0deg,rgba(0,20,51,.95) 0%,rgba(0,20,51,.75) 55%,rgba(0,20,51,.35) 100%)}
+  .field-row{grid-template-columns:1fr}
+  .contact-form .btn{justify-self:stretch;justify-content:center}
+  .partner{background-image:url("assets/img/yas-marina-night-1000.webp")}
+  body{font-size:17px}
+  .header .wrap{height:64px}
+  .nav{inset:64px 0 auto 0}
+  .brand img{height:28px}
+  .hero-ctas .btn{width:100%;justify-content:center}
+  .stats ul{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .stats li{padding:28px 12px;border-left:0}
+  .stats li:nth-child(even){border-left:1px solid var(--on-dark-line)}
+  .stats li:nth-child(-n+2){border-bottom:1px solid var(--on-dark-line)}
+  .facts{grid-template-columns:1fr}
+  .league-grid,.aud-grid{grid-template-columns:1fr}
+  .league-grid > div,.league-grid > div+div{padding:24px 0;border-right:0;border-bottom:1px solid var(--line)}
+  .offers,.eco-cards{grid-template-columns:1fr}
+  .press li{flex-basis:calc((100% - 12px)/2)}
+  .press a{height:92px;padding:16px}
+  .logos{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .logo-cell{border-right:0!important;border-bottom:1px solid var(--on-dark-line);min-height:104px}
+  .logo-cell:nth-last-child(-n+2){border-bottom:0}
+  .group-stats{grid-template-columns:repeat(4,minmax(0,1fr))}
+  .group-stats > div,.group-stats > div:nth-child(4),.group-stats > div:nth-child(5){grid-column:span 2;padding:22px 8px}
+  .group-stats > div:nth-child(5){grid-column:2 / 4}
+  .timeline{grid-template-columns:1fr 1fr}
+  .footer-contact{text-align:left}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="header" id="header">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="Constructor Racing — home"><img src="assets/logos/constructor-racing.svg" alt="Constructor Racing" width="170" height="35"></a>
+    <nav class="nav" id="nav" aria-label="Main">
+      <a href="#team">Team</a>
+      <a href="#record">Record</a>
+      <a href="#league">League</a>
+      <a href="#technology">Technology</a>
+      <a href="#beyond">Beyond racing</a>
+      <a href="#partners">Our partners</a>
+      <a href="#partner" class="btn btn-primary">Partner with us</a>
+    </nav>
+    <button class="menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false" aria-controls="nav">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7h18M3 12h18M3 17h18"/></svg>
+    </button>
+  </div>
+</header>
+
+<main id="main">
+
+<!-- HERO -->
+<section class="hero" id="top" aria-label="Introduction">
+  <div class="wrap">
+    <span class="eyebrow">Constructor Autonomous Racing</span>
+    <h1>AI driving at the limit of the real world</h1>
+    <p class="hero-sub"><span>Professional AI racing team competing in A2RL, the world’s leading autonomous racing league</span><span class="f1">Formula 1 for AI</span></p>
+    <ul class="hero-beats"><li>Identical race cars</li><li>No human drivers</li><li>The winner is the software</li></ul>
+    <div class="hero-ctas">
+      <a href="#partner" class="btn btn-primary">Partner with us <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      <button type="button" class="btn btn-ghost" id="watchBtn" hidden>
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg> Watch the film
+      </button>
+      <a href="#team" class="btn btn-ghost" id="meetBtn">Meet the team</a>
+    </div>
+  </div>
+  <div class="hero-speed" aria-hidden="true"><b>280<small>km/h</small></b><span>Top speed, fully autonomous</span></div>
+</section>
+
+<!-- STATS -->
+<section class="stats" aria-label="Team in numbers">
+  <div class="wrap">
+    <ul>
+      <li><span class="stat-num"><span data-count="8">8</span></span><span class="stat-label">years in autonomous racing</span></li>
+      <li><span class="stat-num"><span data-count="1000" data-format="thousands">1,000</span></span><span class="stat-label">hours on track and test bench</span></li>
+      <li><span class="stat-num"><span data-count="27">27</span></span><span class="stat-label">patents in autonomy and robotics</span></li>
+      <li><span class="stat-num"><span data-count="15">15</span>+ TB</span><span class="stat-label">of proprietary racing data</span></li>
+      </ul>
+  </div>
+</section>
+
+<!-- PROVEN TEAM -->
+<section class="section" id="team" aria-labelledby="team-title">
+  <div class="wrap">
+    <div class="intro-top">
+      <div class="reveal">
+        <span class="eyebrow">Team</span>
+        <h2 class="h2" id="team-title">Professional engineering team, not an academic project</h2>
+      </div>
+      <div class="reveal">
+        <p class="intro-body">The team is built by experts in AI, robotics and dynamic systems engineering, and designs, tests and races the full autonomy stack: perception, planning and control. We are based in Germany and represent Constructor Labs and Constructor University.</p>
+        <ul class="checks">
+          <li><span class="yr">2022</span><span><b>Roborace World Champions</b></span></li>
+          <li><span class="yr">2024</span><span><b>2nd place</b>, A2RL Grand Final</span></li>
+          <li><span class="yr">2026</span><span><b>2nd place</b> at A2RL Imola, Europe’s first multi-car autonomous race</span></li>
+        </ul>
+      </div>
+    </div>
+    <figure class="intro-car reveal">
+      <img src="assets/img/hero-car-white-1325.webp" srcset="assets/img/hero-car-white-800.webp 800w, assets/img/hero-car-white-1325.webp 1325w" sizes="(max-width: 1280px) 100vw, 1184px" alt="Constructor Racing’s autonomous Dallara Super Formula car, number 8, in side view" width="1325" height="357" loading="lazy" decoding="async">
+    </figure>
+  </div>
+</section>
+
+
+<!-- RECORD / TIMELINE -->
+<section class="section deep" id="record" aria-labelledby="record-title">
+  <div class="wrap">
+    <div class="timeline-head">
+      <span class="eyebrow">Record</span>
+      <h2 class="h2" id="record-title">Eight years at the front of autonomous racing</h2>
+    </div>
+    <ol class="timeline" aria-label="Team history 2018 to 2026">
+      <li class="tl-item"><div class="tl-year">2018</div><span class="tl-cup" aria-hidden="true"></span><p class="tl-title">The team is formed</p></li>
+      <li class="tl-item"><div class="tl-year">2019</div><span class="tl-cup" aria-hidden="true"></span><p class="tl-title">The team joins Constructor</p></li>
+      <li class="tl-item win"><div class="tl-year">2020</div><svg class="tl-cup" viewBox="0 0 24 24" fill="currentColor" aria-label="Podium"><path d="M7 2h10v2h4v3.5A4.5 4.5 0 0 1 16.6 12a5 5 0 0 1-3.6 2.9V18h3.5v3h-9v-3H11v-3.1A5 5 0 0 1 7.4 12 4.5 4.5 0 0 1 3 7.5V4h4zm0 4H5v1.5a2.5 2.5 0 0 0 2 2.45zm10 0v3.95a2.5 2.5 0 0 0 2-2.45V6z"/></svg><p class="tl-title">Roborace founding team, multiple race wins</p></li>
+      <li class="tl-item win"><div class="tl-year">2021</div><svg class="tl-cup" viewBox="0 0 24 24" fill="currentColor" aria-label="Podium"><path d="M7 2h10v2h4v3.5A4.5 4.5 0 0 1 16.6 12a5 5 0 0 1-3.6 2.9V18h3.5v3h-9v-3H11v-3.1A5 5 0 0 1 7.4 12 4.5 4.5 0 0 1 3 7.5V4h4zm0 4H5v1.5a2.5 2.5 0 0 0 2 2.45zm10 0v3.95a2.5 2.5 0 0 0 2-2.45V6z"/></svg><p class="tl-title">Leads most of the Roborace season</p></li>
+      <li class="tl-item win"><div class="tl-year">2022</div><svg class="tl-cup" viewBox="0 0 24 24" fill="currentColor" aria-label="Podium"><path d="M7 2h10v2h4v3.5A4.5 4.5 0 0 1 16.6 12a5 5 0 0 1-3.6 2.9V18h3.5v3h-9v-3H11v-3.1A5 5 0 0 1 7.4 12 4.5 4.5 0 0 1 3 7.5V4h4zm0 4H5v1.5a2.5 2.5 0 0 0 2 2.45zm10 0v3.95a2.5 2.5 0 0 0 2-2.45V6z"/></svg><p class="tl-title">Roborace World Champions</p></li>
+      <li class="tl-item"><div class="tl-year">2023</div><span class="tl-cup" aria-hidden="true"></span><p class="tl-title">Joins A2RL</p></li>
+      <li class="tl-item win"><div class="tl-year">2024</div><svg class="tl-cup" viewBox="0 0 24 24" fill="currentColor" aria-label="Podium"><path d="M7 2h10v2h4v3.5A4.5 4.5 0 0 1 16.6 12a5 5 0 0 1-3.6 2.9V18h3.5v3h-9v-3H11v-3.1A5 5 0 0 1 7.4 12 4.5 4.5 0 0 1 3 7.5V4h4zm0 4H5v1.5a2.5 2.5 0 0 0 2 2.45zm10 0v3.95a2.5 2.5 0 0 0 2-2.45V6z"/></svg><p class="tl-title">2nd, A2RL Grand Final</p></li>
+      <li class="tl-item"><div class="tl-year">2025</div><span class="tl-cup" aria-hidden="true"></span><p class="tl-title">6th, A2RL Gold Final</p></li>
+      <li class="tl-item win"><div class="tl-year">2026</div><svg class="tl-cup" viewBox="0 0 24 24" fill="currentColor" aria-label="Podium"><path d="M7 2h10v2h4v3.5A4.5 4.5 0 0 1 16.6 12a5 5 0 0 1-3.6 2.9V18h3.5v3h-9v-3H11v-3.1A5 5 0 0 1 7.4 12 4.5 4.5 0 0 1 3 7.5V4h4zm0 4H5v1.5a2.5 2.5 0 0 0 2 2.45zm10 0v3.95a2.5 2.5 0 0 0 2-2.45V6z"/></svg><p class="tl-title">2nd at A2RL Imola, Europe’s first multi-car autonomous race</p></li>
+    </ol>
+    <p class="tl-legend"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 2h10v2h4v3.5A4.5 4.5 0 0 1 16.6 12a5 5 0 0 1-3.6 2.9V18h3.5v3h-9v-3H11v-3.1A5 5 0 0 1 7.4 12 4.5 4.5 0 0 1 3 7.5V4h4zm0 4H5v1.5a2.5 2.5 0 0 0 2 2.45zm10 0v3.95a2.5 2.5 0 0 0 2-2.45V6z"/></svg> 5 podiums</p>
+  </div>
+</section>
+
+<!-- LEAGUE -->
+<section class="section" id="league" aria-labelledby="league-title">
+  <div class="wrap">
+    <div class="section-head split reveal">
+      <div>
+        <span class="eyebrow">League</span>
+        <h2 class="h2" id="league-title">A2RL: Formula 1 for AI</h2>
+      </div>
+      <div>
+        <p class="lead">The world’s leading professional autonomous racing league. Every team runs the same car. The whole competition is in the software: perception, planning and control.</p>
+        <a class="text-link" href="https://a2rl.io" target="_blank" rel="noopener">Visit a2rl.io <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg></a>
+      </div>
+    </div>
+    <figure class="league-hero reveal">
+      <img src="assets/img/a2rl-grid-imola-1000.webp" srcset="assets/img/a2rl-grid-imola-1000.webp 1000w, assets/img/a2rl-grid-imola-2000.webp 2000w" sizes="(max-width: 1280px) 100vw, 1184px" alt="The full A2RL grid of autonomous race cars and teams on the start straight at Imola" width="2000" height="1124" loading="lazy" decoding="async">
+      <figcaption>The A2RL grid at Imola, Europe’s first multi-car autonomous race</figcaption>
+    </figure>
+    <div class="league-grid reveal">
+      <div><div class="big">280<small>km/h</small></div><p>Top speed of the car, with no one on board</p></div>
+      <div><div class="big">14</div><p>Perception sensors on every car: 3 LiDARs, 4 radars, 7 cameras</p></div>
+      <div><div class="big">10</div><p>Teams in the league</p></div>
+      <div><div class="big">0</div><p>Drivers and remote controls. The AI makes every decision</p></div>
+    </div>
+    <ul class="facts reveal">
+      <li>Identical full-scale Dallara Super Formula car for every team</li>
+      <li>Wheel-to-wheel, multi-car racing, not time trials</li>
+      <li>A2RL founded in Abu Dhabi; first fully autonomous race in 2024</li>
+      <li>A2RL races at the Formula 1 Yas Marina Circuit in Abu Dhabi</li>
+      <li>First European A2RL race at Imola, September 2026</li>
+      <li>Three A2RL races in 2027: China, Europe and the UAE</li>
+    </ul>
+  </div>
+</section>
+
+<!-- TECHNOLOGY -->
+<section class="section dark tech" id="technology" aria-labelledby="tech-title">
+  <div class="wrap">
+    <div class="section-head split reveal">
+      <div>
+        <span class="eyebrow">Technology</span>
+        <h2 class="h2" id="tech-title">Physical AI that acts in the real world</h2>
+      </div>
+      <p class="lead">AI controls real race cars, in real time, wheel-to-wheel at high speed. We test every software release on a real race car at up to 280 km/h before it goes into a race.</p>
+    </div>
+    <div class="pillars reveal">
+      <div class="pillar">
+        <span class="pillar-num">01 — PERCEPTION</span>
+        <h3>See</h3>
+        <p>Understanding the track, the car and every rival around it.</p>
+        <ul><li>Computer vision</li><li>Sensor fusion: LiDAR, radar, cameras</li></ul>
+      </div>
+      <div class="pillar">
+        <span class="pillar-num">02 — PLANNING</span>
+        <h3>Decide</h3>
+        <p>Choosing the fastest safe line, overtakes and defence, many times a second.</p>
+        <ul><li>Machine learning</li><li>Optimised path planning and prediction</li></ul>
+      </div>
+      <div class="pillar">
+        <span class="pillar-num">03 — CONTROL</span>
+        <h3>Act</h3>
+        <p>Turning decisions into steering, throttle and brake at the limit of grip.</p>
+        <ul><li>Vehicle dynamics</li><li>Safety-critical control systems</li></ul>
+      </div>
+    </div>
+    <div class="loop reveal" aria-label="Development loop">
+      <span class="loop-label">How we improve</span>
+      <span>Data</span><span class="arr">→</span><span>Model</span><span class="arr">→</span><span>Track</span><span class="arr">→</span><span>Improvement</span><span class="arr">↻</span>
+    </div>
+    <div class="why reveal">
+      <img src="assets/img/car-imola-1000.webp" srcset="assets/img/car-imola-1000.webp 1000w, assets/img/car-imola-2000.webp 2000w" sizes="(max-width: 960px) 100vw, 50vw" alt="Constructor Racing’s autonomous car on track at Imola" width="2000" height="1333" loading="lazy" decoding="async">
+      <div>
+        <span class="eyebrow">Why it matters</span>
+        <blockquote>If AI can operate safely at racing speeds, it can power the next generation of autonomy across industries.</blockquote>
+        <p>Autonomous racing is the ultimate real-world benchmark for Physical AI. It validates perception, decision-making and control under pressure, at speed and in the face of risk. This is where AI moves beyond simulation and proves itself in reality.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BEYOND RACING -->
+<section class="section grey" id="beyond" aria-labelledby="beyond-title">
+  <div class="wrap">
+    <div class="section-head split reveal">
+      <div>
+        <span class="eyebrow">Beyond racing</span>
+        <h2 class="h2" id="beyond-title">Racing is our testing ground for real-world deployment</h2>
+      </div>
+      <div>
+        <p class="lead">The same stack that races at 280 km/h is built into products and services for motorsport, mobility and industry.</p>
+      </div>
+    </div>
+    <div class="offers">
+      <article class="offer reveal">
+        <div class="offer-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 12l5-3M12 3v2M21 12h-2M5 12H3"/></svg></div>
+        <h3>Racing Coach</h3>
+        <p>A real-time AI driving coach: a lap-by-lap plan, racing-line corrections and throttle and brake deltas against the AI-optimal lap.</p>
+        <span class="for">For racing schools, OEM driver programmes, sim racing and track days</span>
+      </article>
+      <article class="offer reveal">
+        <div class="offer-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7z"/><path d="M9 12l2 2 4-4"/></svg></div>
+        <h3>ADAS &amp; obstacle avoidance</h3>
+        <p>High-speed collision avoidance for road and private-area vehicles, built on our racing perception and planning.</p>
+        <span class="for">For carmakers and vehicle programmes</span>
+      </article>
+      <article class="offer reveal">
+        <div class="offer-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18"/><path d="M3 9h18M9 21V9"/></svg></div>
+        <h3>Private-area autonomy</h3>
+        <p>Self-driving for controlled areas where the racing stack transfers directly: ports, yards, campuses, agriculture and logistics sites.</p>
+        <span class="for">For ports, logistics, agriculture and industrial sites</span>
+      </article>
+      <article class="offer reveal">
+        <div class="offer-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l9 5v10l-9 5-9-5V7z"/><path d="M12 22V12M21 7l-9 5-9-5"/></svg></div>
+        <h3>Autonomy kits</h3>
+        <p>Modular perception, planning and control kits for target industries and fleet orchestration.</p>
+        <span class="for">For ADAS and autonomy teams</span>
+      </article>
+      <article class="offer reveal">
+        <div class="offer-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 2v6L4 20h16L14 8V2M8 2h8M7 15h10"/></svg></div>
+        <h3>R&amp;D consulting &amp; validation</h3>
+        <p>R&amp;D in ADAS and private-area autonomy, plus extreme-edge sensor and compute validation on our simulation, telemetry and test bed.</p>
+        <span class="for">For OEMs, Tier-1 suppliers and deep-tech investors</span>
+      </article>
+      <article class="offer cta reveal">
+        <div>
+          <h3 style="margin-top:0">Have a problem the racing stack could solve?</h3>
+          <p style="margin-top:12px">Tell us about it. Our engineers will come back to you.</p>
+        </div>
+        <a class="btn btn-primary" href="#contact" style="margin-top:28px;align-self:flex-start">Contact us <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </article>
+    </div>
+
+    <div class="clients reveal">
+      <div class="clients-head">
+        <div>
+          <span class="eyebrow">Trusted by</span>
+          <h3 class="h3">Our racing technology is used by</h3>
+        </div>
+        <p>The only autonomous racing team whose clients include classic motorsport teams.</p>
+      </div>
+      <ul class="logos">
+        <li class="logo-cell"><img src="assets/logos/drako.svg" alt="Drako" loading="lazy" style="--h:22px"></li>
+        <li class="logo-cell"><img src="assets/logos/hendrick.svg" alt="Hendrick Motorsports" loading="lazy" style="--h:50px"></li>
+        <li class="logo-cell"><img src="assets/logos/mclaren.svg" alt="McLaren" loading="lazy" style="--h:26px"></li>
+        <li class="logo-cell"><img src="assets/logos/rfk.png" alt="RFK Racing" loading="lazy" style="--h:46px"></li>
+        <li class="logo-cell"><img src="assets/logos/rll.png" alt="Rahal Letterman Lanigan Racing" loading="lazy" style="--h:48px"></li>
+        <li class="logo-cell"><img src="assets/logos/pratt-miller.svg" alt="Pratt Miller" loading="lazy" style="--h:34px"></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- AUDIENCE -->
+<section class="section" aria-labelledby="aud-title">
+  <div class="wrap">
+    <div class="section-head split reveal">
+      <div>
+        <span class="eyebrow">Audience</span>
+        <h2 class="h2" id="aud-title">Where the industry watches</h2>
+      </div>
+      <p class="lead">Three years old, with an audience growing by double digits with every race. Autonomous racing draws carmakers, engineers, investors and the world’s press.</p>
+    </div>
+    <div class="reveal">
+      <p class="aud-block-title" style="margin-top:0">A2RL Imola, 5 September 2026</p>
+      <div class="aud-grid" style="margin-top:16px">
+        <div><div class="big">150+</div><p>VIP guests at the networking event</p></div>
+        <div><div class="big">~60</div><p>companies represented</p></div>
+        <div><div class="big">35+</div><p>journalists at the media day</p></div>
+        <div><div class="big">80+</div><p>articles published</p></div>
+      </div>
+    </div>
+    <div class="reveal">
+      <p class="aud-block-title">A2RL reach, per race</p>
+      <div class="aud-grid" style="margin-top:16px">
+        <div><div class="big">1.1B</div><p>households reached</p></div>
+        <div><div class="big">147M</div><p>social impressions</p></div>
+        <div><div class="big">9M</div><p>YouTube race views</p></div>
+        <div><div class="big">1M</div><p>livestream views</p></div>
+      </div>
+    </div>
+    <div class="reveal">
+      <p class="aud-block-title">Covered by</p>
+      <ul class="press">
+        <li><a href="https://apnews.com/video/ai-behind-the-wheel-in-driverless-race-series-08660e86f3194bb08e55b741d65ad558" target="_blank" rel="nofollow noopener" aria-label="AP — The Associated Press: read the A2RL article"><img src="assets/press/ap.svg" alt="AP — The Associated Press" loading="lazy"></a></li>
+        <li><a href="https://edition.cnn.com/2026/09/06/sport/video/driverless-cars-compete-in-f1-style-race-digvid" target="_blank" rel="nofollow noopener" aria-label="CNN: read the A2RL article"><img src="assets/press/cnn.svg" alt="CNN" loading="lazy"></a></li>
+        <li><a href="https://www.wired.com/story/2-driverless-cars-crashed-going-155-mph-that-could-be-a-good-thing/" target="_blank" rel="nofollow noopener" aria-label="Wired: read the A2RL article"><img src="assets/press/wired.svg" alt="Wired" loading="lazy"></a></li>
+        <li><a href="https://www.si.com/onsi/f1/a2rl-the-futuristic-racing-series-marking-a-major-milestone-for-autonomy-at-imola" target="_blank" rel="nofollow noopener" aria-label="Sports Illustrated: read the A2RL article"><img src="assets/press/si.svg" alt="Sports Illustrated" loading="lazy"></a></li>
+        <li><a href="https://www.autosport.com/general/news/a2rls-first-international-race-brings-autonomous-thrills-to-legendary-circuit/10853316/" target="_blank" rel="nofollow noopener" aria-label="Autosport: read the A2RL article"><img src="assets/press/autosport.svg" alt="Autosport" loading="lazy"></a></li>
+        <li><a href="https://www.the-race.com/promoted/watch-a2rl-five-car-autonomous-race-at-imola/" target="_blank" rel="nofollow noopener" aria-label="The Race: read the A2RL article"><img src="assets/press/the-race.png" alt="The Race" loading="lazy"></a></li>
+        <li><a href="https://www.planetf1.com/news/ai-racing-autonomous-cars-f1-driver-pace" target="_blank" rel="nofollow noopener" aria-label="PlanetF1: read the A2RL article"><img src="assets/press/planetf1.png" alt="PlanetF1" loading="lazy"></a></li>
+        <li><a href="https://it.euronews.com/2026/09/08/auto-da-corsa-senza-pilota-gareggiano-in-italia-nella-prima-gara-autonoma-europea-a-piu-ve" target="_blank" rel="nofollow noopener" aria-label="Euronews: read the A2RL article"><img src="assets/press/euronews.svg" alt="Euronews" loading="lazy"></a></li>
+        <li><a href="https://www.thenationalnews.com/arts-culture/2026/09/06/uae-team-kinetiz-triumphs-as-driverless-racing-series-a2rl-makes-imola-debut/" target="_blank" rel="nofollow noopener" aria-label="The National: read the A2RL article"><img src="assets/press/thenational.svg" alt="The National" loading="lazy"></a></li>
+        <li><a href="https://www.ilsole24ore.com/art/motori-debutta-circuito-imola-gp-auto-guida-autonoma-AJlsf5k" target="_blank" rel="nofollow noopener" aria-label="Il Sole 24 Ore: read the A2RL article"><img src="assets/press/ilsole.svg" alt="Il Sole 24 Ore" loading="lazy"></a></li>
+        <li><a href="https://www.corriere.it/motori/26_settembre_01/all-autodromo-di-imola-corrono-le-auto-senza-pilota-frenate-e-sorpassi-a-250-km-h-li-decide-l-ia-c0e6ed68-0c3c-47d2-a9c5-d805fa198xlk.shtml" target="_blank" rel="nofollow noopener" aria-label="Corriere della Sera: read the A2RL article"><img src="assets/press/corriere.svg" alt="Corriere della Sera" loading="lazy"></a></li>
+      </ul>
+    </div>
+    <p class="note">Figures: A2RL partner report, Imola, September 2026.</p>
+  </div>
+</section>
+
+<!-- OUR PARTNERS — to add a partner, copy one <article class="partner-card"> block -->
+<section class="section grey" id="partners" aria-labelledby="partners-title">
+  <div class="wrap">
+    <div class="section-head split reveal">
+      <div>
+        <span class="eyebrow">Our partners</span>
+        <h2 class="h2" id="partners-title">Racing together</h2>
+      </div>
+      <p class="lead">The companies that back our team on and off the track.</p>
+    </div>
+    <div class="partner-list">
+      <article class="partner-card reveal">
+        <div class="partner-photo">
+          <img src="assets/img/car-yas-marina-night-1000.webp" srcset="assets/img/car-yas-marina-night-1000.webp 1000w, assets/img/car-yas-marina-night-2000.webp 2000w" sizes="(max-width: 960px) 100vw, 640px" alt="Constructor Racing car number 8 in Corpay livery racing at Yas Marina" width="2000" height="1334" loading="lazy" decoding="async">
+        </div>
+        <div class="partner-body">
+          <img class="partner-logo" src="assets/partners/corpay-white.svg" alt="Corpay" width="102" height="26">
+          <span class="partner-role">Team partner</span>
+          <p>Corpay is a global corporate payments company and a member of the S&amp;P 500 (NYSE: CPAY). It helps more than 800,000 businesses pay expenses in a simple, controlled way, from supplier and cross-border payments to fuel, EV charging, tolls and workforce lodging.</p>
+          <a class="partner-link" href="https://www.corpay.com" target="_blank" rel="noopener">Visit corpay.com <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg></a>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- PARTNER + CONTACT FORM -->
+<section class="partner" id="partner" aria-labelledby="partner-title">
+  <div class="wrap partner-grid">
+    <div class="reveal">
+      <span class="eyebrow">Partner with us</span>
+      <h2 id="partner-title">Join the future of <span class="hl">Physical AI</span></h2>
+      <p class="lead">Position your company in Physical AI with a team that proves it on track.</p>
+    </div>
+
+    <!-- Salesforce Web-to-Lead form (from Andrew Fisher, Constructor Capital). Keep field names, ids, oid and retURL unchanged.
+         reCAPTCHA: not added yet. -->
+    <form class="contact-form reveal" id="contact" action="https://webto.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8&amp;orgId=00Dal00001MFzMC" method="POST" accept-charset="UTF-8">
+      <input type="hidden" name="oid" value="00Dal00001MFzMC">
+      <input type="hidden" name="retURL" value="https://www.constructor.racing/thank-you/">
+      <input type="hidden" id="lead_source" name="lead_source" value="Web">
+
+      <h3>Contact us</h3>
+      <div class="field-row">
+        <div class="field"><label for="first_name">First name</label><input id="first_name" name="first_name" type="text" maxlength="40" autocomplete="given-name" required></div>
+        <div class="field"><label for="last_name">Last name</label><input id="last_name" name="last_name" type="text" maxlength="80" autocomplete="family-name" required></div>
+      </div>
+      <div class="field"><label for="email">Work email</label><input id="email" name="email" type="email" maxlength="80" autocomplete="email" required></div>
+      <div class="field-row">
+        <div class="field"><label for="company">Company</label><input id="company" name="company" type="text" maxlength="40" autocomplete="organization" required></div>
+        <div class="field"><label for="title">Job title</label><input id="title" name="title" type="text" maxlength="40" autocomplete="organization-title"></div>
+      </div>
+      <div class="field"><label for="00Na600000GzQ2n">Enquiry type</label>
+        <select id="00Na600000GzQ2n" name="00Na600000GzQ2n" title="Enquiry Type" required>
+          <option value="">Select one</option>
+          <option value="Sponsorship">Sponsorship</option>
+          <option value="PR / Marketing">PR / Marketing</option>
+          <option value="Careers">Careers</option>
+          <option value="Business Development">Business Development</option>
+          <option value="Research">Research</option>
+          <option value="Other">Other</option>
+        </select>
+      </div>
+      <div class="field"><label for="00Na600000GCui0">Your message</label><textarea id="00Na600000GCui0" name="00Na600000GCui0" rows="4" wrap="soft"></textarea></div>
+      <button class="btn btn-primary" type="submit" name="submit">Send message <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+    </form>
+  </div>
+</section>
+
+<!-- ECOSYSTEM -->
+<section class="section" id="ecosystem" aria-labelledby="eco-title">
+  <div class="wrap">
+    <div class="section-head split reveal">
+      <div>
+        <span class="eyebrow">Backed by Constructor</span>
+        <h2 class="h2" id="eco-title">Science, engineering and business behind every lap</h2>
+      </div>
+      <p class="lead">Constructor Racing is part of Constructor Group, a private education, research and technology group. A rare combination in the field: a private university and a private racing team.</p>
+    </div>
+    <div class="eco-cards">
+      <a class="eco reveal" href="https://constructor.org/knowledge" target="_blank" rel="noopener">
+        <div class="eco-media"><img src="assets/img/constructor-knowledge-658.webp" alt="Constructor University campus in Bremen" width="658" height="364" loading="lazy"><img class="eco-logo" src="assets/logos/constructor-knowledge.svg" alt="Constructor Knowledge"></div>
+        <div class="eco-body"><h3>Research and talent</h3><p>Constructor Knowledge brings together education, research and talent development across an international network, including Constructor University in Bremen, Germany (2,500 students on campus), EBAC in Brazil and Nexford in the United States.</p><span class="eco-link">constructor.org/knowledge <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg></span></div>
+      </a>
+      <a class="eco reveal" href="https://constructorlabs.org" target="_blank" rel="noopener">
+        <div class="eco-media"><img src="assets/img/constructor-labs-658.webp" alt="Constructor logo on the side of the race car" width="658" height="364" loading="lazy"><img class="eco-logo" src="assets/logos/constructor-labs.svg" alt="Constructor Labs"></div>
+        <div class="eco-body"><h3>Research into real-world solutions</h3><p>Constructor Labs bridges advanced scientific research and real-world applications, turning cutting-edge technologies into practical solutions. Its expertise spans AI, robotics, autonomous systems and data-driven innovation, connecting research with industry needs.</p><span class="eco-link">constructorlabs.org <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg></span></div>
+      </a>
+      <a class="eco reveal" href="https://constructor.tech/" target="_blank" rel="noopener">
+        <div class="eco-media"><img src="assets/img/constructor-technology-658.webp" alt="Abstract visual of data and AI systems" width="658" height="364" loading="lazy"><img class="eco-logo" src="assets/logos/constructor-technology.svg" alt="Constructor Technology"></div>
+        <div class="eco-body"><h3>Engineering and AI systems</h3><p>A complete software platform for science, research and education, built on generative AI.</p><span class="eco-link">constructor.tech <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg></span></div>
+      </a>
+      <a class="eco reveal" href="https://constructor.capital/" target="_blank" rel="noopener">
+        <div class="eco-media"><img src="assets/img/constructor-capital-658.webp" alt="Zurich old town at dusk" width="658" height="364" loading="lazy"><img class="eco-logo" src="assets/logos/constructor-capital.svg" alt="Constructor Capital"></div>
+        <div class="eco-body"><h3>Investment and commercialisation</h3><p>Early and growth investment in software, deep tech and knowledge tech.</p><span class="eco-link">constructor.capital <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg></span></div>
+      </a>
+    </div>
+    <div class="group-stats reveal">
+      <div><div class="big">1,300+</div><p>employees</p></div>
+      <div><div class="big">120+</div><p>nationalities</p></div>
+      <div><div class="big">650+</div><p>scientists</p></div>
+      <div><div class="big">9</div><p>offices</p></div>
+      <div><div class="big">3</div><p>Nobel laureates on the board</p></div>
+    </div>
+    <p class="loop-line reveal"><b>Closed loop:</b> Education → Research → Innovation. <a href="https://constructor.org" target="_blank" rel="noopener">More about Constructor Group ↗</a></p>
+  </div>
+</section>
+
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer-top">
+      <div>
+        <img src="assets/logos/constructor-racing.svg" alt="Constructor Racing" width="185" height="38">
+        <p style="margin-top:20px;color:var(--on-dark-muted);max-width:380px;font-size:16px">AI driving at the limit of the real world. Competing in A2RL, the Abu Dhabi Autonomous Racing League.</p>
+      </div>
+      <div class="footer-contact">
+        <span>Work with us</span>
+        <a href="#contact">Contact us</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© Constructor 2026</span>
+      <nav aria-label="Constructor sites">
+        <a href="https://constructor.org" target="_blank" rel="noopener">constructor.org</a>
+        <a href="https://constructor.university" target="_blank" rel="noopener">constructor.university</a>
+        <a href="https://constructorlabs.org" target="_blank" rel="noopener">constructorlabs.org</a>
+      </nav>
+    </div>
+  </div>
+</footer>
+
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Team film">
+  <button type="button" class="close" id="lbClose" aria-label="Close video">×</button>
+  <div class="frame" id="lbFrame"></div>
+</div>
+
+<script>
+// Paste the YouTube video ID (the part after "v=") to enable the "Watch the film" button.
+const YOUTUBE_ID = '';
+
+(() => {
+  const header = document.getElementById('header');
+  const onScroll = () => header.classList.toggle('scrolled', window.scrollY > 40);
+  onScroll(); window.addEventListener('scroll', onScroll, { passive: true });
+
+  // Mobile menu
+  const nav = document.getElementById('nav'), menuBtn = document.getElementById('menuBtn');
+  const setMenu = open => {
+    nav.classList.toggle('open', open); header.classList.toggle('menu-open', open);
+    menuBtn.setAttribute('aria-expanded', open); menuBtn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+  };
+  menuBtn.addEventListener('click', () => setMenu(!nav.classList.contains('open')));
+  nav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setMenu(false)));
+
+  // Reveal on scroll + count-up
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const countUp = el => {
+    const target = +el.dataset.count, fmt = el.dataset.format === 'thousands';
+    if (reduce) return;
+    const t0 = performance.now(), dur = 1400;
+    const step = t => {
+      const p = Math.min((t - t0) / dur, 1), v = Math.round(target * (1 - Math.pow(1 - p, 3)));
+      el.textContent = fmt ? v.toLocaleString('en-US') : v;
+      if (p < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  };
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver(entries => entries.forEach(e => {
+      if (!e.isIntersecting) return;
+      e.target.classList.add('in');
+      e.target.querySelectorAll('[data-count]').forEach(countUp);
+      io.unobserve(e.target);
+    }), { threshold: 0.15 });
+    document.querySelectorAll('.reveal, .stats').forEach(el => io.observe(el));
+  } else {
+    document.querySelectorAll('.reveal').forEach(el => el.classList.add('in'));
+  }
+
+
+  // Video lightbox
+  if (YOUTUBE_ID) {
+    const watch = document.getElementById('watchBtn'), lb = document.getElementById('lightbox'), frame = document.getElementById('lbFrame');
+    watch.hidden = false; document.getElementById('meetBtn').hidden = true;
+    const close = () => { lb.classList.remove('open'); frame.innerHTML = ''; watch.focus(); };
+    watch.addEventListener('click', () => {
+      frame.innerHTML = `<iframe src="https://www.youtube-nocookie.com/embed/${YOUTUBE_ID}?autoplay=1&rel=0" title="Constructor Racing film" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>`;
+      lb.classList.add('open'); document.getElementById('lbClose').focus();
+    });
+    document.getElementById('lbClose').addEventListener('click', close);
+    lb.addEventListener('click', e => { if (e.target === lb) close(); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape' && lb.classList.contains('open')) close(); });
+  }
+})();
+</script>
+</body>
+</html>
