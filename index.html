@@ -104,6 +104,7 @@ section[id],form[id]{scroll-margin-top:96px}
 .nav a{color:#fff;text-decoration:none;font-size:15px;font-weight:500;opacity:.85;transition:opacity .2s}
 .nav a:hover{opacity:1}
 .nav .btn{opacity:1;padding:12px 20px;font-size:15px}
+.nav .btn-primary,.nav .btn-primary:hover{color:var(--navy)}
 .menu-btn{display:none;background:none;border:0;color:#fff;padding:8px;cursor:pointer}
 .menu-btn svg{width:28px;height:28px}
 
@@ -253,6 +254,12 @@ section[id],form[id]{scroll-margin-top:96px}
 .field select{appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2300204D' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;background-size:18px;padding-right:40px}
 .field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--navy);background:#fff}
 .contact-form .btn{justify-self:start;margin-top:6px}
+.consents{display:grid;gap:12px;margin-top:4px}
+.check{display:flex;gap:12px;align-items:flex-start;font-size:14px;line-height:1.45;color:var(--ink);cursor:pointer}
+.check input{flex:0 0 18px;width:18px;height:18px;margin:1px 0 0;accent-color:var(--navy);cursor:pointer}
+.check a{color:var(--navy);font-weight:600}
+.g-recaptcha{min-height:78px}
+.form-error{margin:-6px 0 0;font-size:14px;font-weight:600;color:var(--red)}
 
 /* Ecosystem */
 .eco-cards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px}
@@ -368,6 +375,11 @@ section[id],form[id]{scroll-margin-top:96px}
   .footer-contact{text-align:left}
 }
 </style>
+<!-- Salesforce Web-to-Lead reCAPTCHA (from Andrew Fisher's form code) -->
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+<script>
+ function timestamp() { var response = document.getElementById("g-recaptcha-response"); if (response == null || response.value.trim() == "") {var elems = JSON.parse(document.getElementsByName("captcha_settings")[0].value);elems["ts"] = JSON.stringify(new Date().getTime());document.getElementsByName("captcha_settings")[0].value = JSON.stringify(elems); } } setInterval(timestamp, 500);
+</script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -537,7 +549,7 @@ section[id],form[id]{scroll-margin-top:96px}
       <span>Data</span><span class="arr">→</span><span>Model</span><span class="arr">→</span><span>Track</span><span class="arr">→</span><span>Improvement</span><span class="arr">↻</span>
     </div>
     <div class="why reveal">
-      <img src="assets/img/car-imola-1000.webp" srcset="assets/img/car-imola-1000.webp 1000w, assets/img/car-imola-2000.webp 2000w" sizes="(max-width: 960px) 100vw, 50vw" alt="Constructor Racing’s autonomous car on track at Imola" width="2000" height="1333" loading="lazy" decoding="async">
+      <img src="assets/img/car-imola-1000.webp" srcset="assets/img/car-imola-1000.webp 1000w, assets/img/car-imola-1728.webp 1728w" sizes="(max-width: 960px) 100vw, 50vw" alt="Constructor Racing’s autonomous car on track at Imola" width="1728" height="1080" loading="lazy" decoding="async">
       <div>
         <span class="eyebrow">Why it matters</span>
         <blockquote>If AI can operate safely at racing speeds, it can power the next generation of autonomy across industries.</blockquote>
@@ -702,9 +714,10 @@ section[id],form[id]{scroll-margin-top:96px}
       <p class="lead">Position your company in Physical AI with a team that proves it on track.</p>
     </div>
 
-    <!-- Salesforce Web-to-Lead form (from Andrew Fisher, Constructor Capital). Keep field names, ids, oid and retURL unchanged.
-         reCAPTCHA: not added yet. -->
+    <!-- Salesforce Web-to-Lead form (from Andrew Fisher, Constructor Capital). Keep field names, ids, oid, retURL,
+         captcha_settings and the reCAPTCHA site key unchanged. -->
     <form class="contact-form reveal" id="contact" action="https://webto.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8&amp;orgId=00Dal00001MFzMC" method="POST" accept-charset="UTF-8">
+      <input type="hidden" name="captcha_settings" value='{"keyname":"Racing","fallback":"true","orgId":"00Dal00001MFzMC","ts":""}'>
       <input type="hidden" name="oid" value="00Dal00001MFzMC">
       <input type="hidden" name="retURL" value="https://www.constructor.racing/thank-you/">
       <input type="hidden" id="lead_source" name="lead_source" value="Web">
@@ -731,6 +744,12 @@ section[id],form[id]{scroll-margin-top:96px}
         </select>
       </div>
       <div class="field"><label for="00Na600000GCui0">Your message</label><textarea id="00Na600000GCui0" name="00Na600000GCui0" rows="4" wrap="soft"></textarea></div>
+      <div class="consents">
+        <label class="check" for="00Na600000GCZNN"><input id="00Na600000GCZNN" name="00Na600000GCZNN" type="checkbox" value="1" required><span>I have read the <a href="https://constructorlabs.org/privacy-policy/" target="_blank" rel="noopener">Privacy Policy</a> and agree that Constructor Racing processes my data to respond to my enquiry.</span></label>
+        <label class="check" for="00Na600000GCzZZ"><input id="00Na600000GCzZZ" name="00Na600000GCzZZ" type="checkbox" value="1"><span>I consent to receive updates and marketing communications from Constructor Racing.</span></label>
+      </div>
+      <div class="g-recaptcha" data-sitekey="6LecH_0tAAAAAJCAjBEzU_xoZbmJ5wEtSN4Stub4"></div>
+      <p class="form-error" id="captchaError" role="alert" hidden>Please confirm you are not a robot.</p>
       <button class="btn btn-primary" type="submit" name="submit">Send message <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
     </form>
   </div>
@@ -790,7 +809,7 @@ section[id],form[id]{scroll-margin-top:96px}
       </div>
     </div>
     <div class="footer-bottom">
-      <span>© Constructor 2026</span>
+      <span>© Constructor 2026 · <a href="https://constructorlabs.org/privacy-policy/" target="_blank" rel="noopener">Privacy policy</a></span>
       <nav aria-label="Constructor sites">
         <a href="https://constructor.org" target="_blank" rel="noopener">constructor.org</a>
         <a href="https://constructor.university" target="_blank" rel="noopener">constructor.university</a>
@@ -806,6 +825,15 @@ section[id],form[id]{scroll-margin-top:96px}
 </div>
 
 <script>
+// Contact form: require the reCAPTCHA tick before sending to Salesforce
+(() => {
+  const form = document.getElementById('contact'), err = document.getElementById('captchaError');
+  if (!form) return;
+  form.addEventListener('submit', e => {
+    if (window.grecaptcha && !grecaptcha.getResponse()) { e.preventDefault(); err.hidden = false; }
+  });
+})();
+
 // Paste the YouTube video ID (the part after "v=") to enable the "Watch the film" button.
 const YOUTUBE_ID = '';
 
